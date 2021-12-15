@@ -331,12 +331,12 @@ classify.continous <- function(data, method = "rpart", B = 25, ref = NULL, class
     transformation <- "logcpm"
     #classes <- colData(data)[ ,class.labels]
     countsDGE <- data
-    colnames(data) <- c()
-    rownames(data) <- c()
+    #colnames(data) <- c()
+    #rownames(data) <- c()
 
     rawCounts = as.matrix(data)
 
-    countsDGE.normalized <- rep(1, ncol(data))   ## RLE: DESeq mantigi ile normalize ediyor.
+    countsDGE.normalized <- rep(1, ncol(y))   ## RLE: DESeq mantigi ile normalize ediyor.
     
     countsDGE.transformed <- as.matrix(data)   ### prior Count daha sonra duzenlenecek.
 

@@ -348,7 +348,7 @@ classify.continous <- function(data, method = "rpart", B = 25, ref = NULL, class
     #transformedData[[class.labels]] <- classes
 
     input <- t(countsDGE.transformed)   ## Input data from transformed expression data.
-    output <- factor(c(c("NR", "R", "R", "R", "R", "NR", "R", "R", "NR", "NR", "R", "NR", "R", "NR", "R", "NR", "NR", "NR", "NR", "R", "R", "R", "NR", "NR", "NR", "R", "R", "R"),c("R", "R", "R", "R", "NR", "NR", "NR", "NR", "NR", "NR")))  ## Output: class labels of samples.
+    output <- factor(c("NR", "R", "R", "R", "R", "NR", "R", "R", "NR", "NR", "R", "NR", "R", "NR", "R", "NR", "NR", "NR", "NR", "R", "R", "R", "NR", "NR", "NR", "R", "R", "R"))  ## Output: class labels of samples.
 
     trainParameters <- list(NULL)
     
@@ -356,7 +356,7 @@ classify.continous <- function(data, method = "rpart", B = 25, ref = NULL, class
     print(rownames(data))
   }
 
-  trainedModel <- train(input, output, method = method, trControl = control, ...)
+  trainedModel <- train(t(input), output, method = method, trControl = control, ...)
 
   tmp <- confusionMatrix.train(trainedModel, norm = "none")
   tbl <- tmp$table / control$repeats

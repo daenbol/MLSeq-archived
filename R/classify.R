@@ -329,21 +329,25 @@ classify.continous <- function(data, method = "rpart", B = 25, ref = NULL, class
   } else if (preProcessing == "logcpm"){
     normalization <- "none"
     transformation <- "logcpm"
+    #classes <- colData(data)[ ,class.labels]
+    colnames(data) <- c()
+    rownames(data) <- c()
 
-    rawCounts = counts(data, normalized = FALSE)
+    rawCounts = as.matrix(data)
     countsDGE <- DGEList(counts = rawCounts, genes = rownames(rawCounts))
-    countsDGE.normalized <- calcNormFactors(countsDGE, method = "none")   ## RLE: DESeq mantigi ile normalize ediyor.
-    countsDGE.transformed <- cpm(countsDGE.normalized, log = TRUE, prior.count = 1)   ### prior Count daha sonra duzenlenecek.
+    countsDGE.normalized <- rep(1, ncol(y))   ## RLE: DESeq mantigi ile normalize ediyor.
+    
+    countsDGE.transformed <- as.matrix(data)   ### prior Count daha sonra duzenlenecek.
 
     rawData <- countsDGE
-    classes <- colData(data)[ ,class.labels]
-    rawData[[class.labels]] <- classes
+    
+    #rawData[[class.labels]] <- classes
 
     transformedData <- list(normalizedData = countsDGE.normalized, transformedData = countsDGE.transformed)
-    transformedData[[class.labels]] <- classes
+    #transformedData[[class.labels]] <- classes
 
     input <- t(countsDGE.transformed)   ## Input data from transformed expression data.
-    output <- rawData[[class.labels]]  ## Output: class labels of samples.
+    output <- rawData[["test"]]  ## Output: class labels of samples.
 
     trainParameters <- list(NULL)
   }

@@ -360,7 +360,9 @@ classify.continous <- function(data, method = "rpart", B = 25, ref = NULL, class
 
   tmp <- confusionMatrix.train(trainedModel, norm = "none")
   tbl <- tmp$table / control$repeats
-
+  print("=======================")
+  print(tbl)
+  print("--------------------------")
   confM = confusionMatrix(round(tbl, 0), positive = ref)
   confM$tableRounded <- round(tbl, 2)
   confM$table <- round(tbl, 0)

@@ -168,7 +168,7 @@ classify <- function(data, method = "rpart", B = 25, ref = NULL, class.labels = 
 
   # Define the name of class.labels from DESeqDataSet
   if (is.null(class.labels)){
-    class.labels <- colnames(colData(data))[1]
+    class.labels <- colnames(colnames(data))[1]
   }
 
   if (!is.null(ref)){
@@ -179,13 +179,13 @@ classify <- function(data, method = "rpart", B = 25, ref = NULL, class.labels = 
 
   # If reference category is not specified, first category is selected as reference category
   if (is.null(ref)){
-    ref = levels(colData(data)[ ,class.labels])[1]
+    ref = levels(colnames(data)[ ,class.labels])[1]
   }
 
   # Data class olarak DESeqDataSet'e bagli kalmayalim.
-  if (class(data)[1] != "DESeqDataSet") {
-    stop("Data should be a \"DESeqDataSet Object\" of S4 class.")
-  }
+  #if (class(data)[1] != "DESeqDataSet") {
+  #  stop("Data should be a \"DESeqDataSet Object\" of S4 class.")
+  #}
 
   if (is.null(method)){
     stop("Classification method is not specified.")
@@ -297,7 +297,7 @@ classify.continous <- function(data, method = "rpart", B = 25, ref = NULL, class
     normalization <- "tmm"
     transformation <- "logcpm"
 
-    rawCounts = counts(data, normalized = FALSE)
+    rawCounts = data
     countsDGE <- DGEList(counts = rawCounts, genes = rownames(rawCounts))
     countsDGE.normalized <- calcNormFactors(countsDGE, method = "TMM")   ## RLE: DESeq mantigi ile normalize ediyor.
     countsDGE.transformed <- cpm(countsDGE.normalized, log = TRUE, prior.count = 1)   ### prior Count daha sonra duzenlenecek.

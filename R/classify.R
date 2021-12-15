@@ -348,7 +348,7 @@ classify.continous <- function(data, method = "rpart", B = 25, ref = NULL, class
     #transformedData[[class.labels]] <- classes
 
     input <- t(countsDGE.transformed)   ## Input data from transformed expression data.
-    output <- rawData[["test"]]  ## Output: class labels of samples.
+    output <- rawData  ## Output: class labels of samples.
 
     trainParameters <- list(NULL)
     

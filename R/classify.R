@@ -363,6 +363,7 @@ classify.continous <- function(data, method = "rpart", B = 25, ref = NULL, class
   print("=======================")
   print(tbl)
   print("--------------------------")
+  print(round(tbl, 0))
   confM = confusionMatrix(round(tbl, 0), positive = ref)
   confM$tableRounded <- round(tbl, 2)
   confM$table <- round(tbl, 0)
